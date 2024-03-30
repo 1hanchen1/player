@@ -1,81 +1,92 @@
 <!DOCTYPE html>
 <html lang="zh">
- <head> 
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>音乐播放器</title> 
-  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script> 
- </head> 
- <body> 
-   <div>
-    <input type="text" value="" placeholder="请输入歌名..." id="name">
-    <button onclick="myFunction()">搜索</button>
-  </div>
-  <select id="pinzhi" name="pinzhi">
-        <option value="14" selected="selected">SQ无损音质(14)[flac]</option> <!--selected设置默认选中-->
-		<option value="13">SQ无损音质(13)[flac]</option>
-		<option value="12"> SQ无损音质(12)[flac]</option>
-		<option value="11">SQ无损音质(11)[flac]</option>
-		<option value="10">SQ无损音质(10)[flac]</option>
-		<option value="9">HQ高音质(9)[mp3]</option>
-        <option value="8">HQ高音质(8)[mp3]</option>
-		<option value="7">标准音质(7)[mp3]</option>
-		<option value="6">标准音质(6)[ogg]</option>
-		<option value="5">标准音质(5)[ogg]</option>
-        <option value="4">标准音质(4)[m4a]</option>
-		<option value="3">有损音质(3)[m4a]</option>
-		<option value="2">有损音质(2)[m4a]</option>
-		<option value="1">音乐试听(1)[mp3]</option>
-		<option value="0">音乐试听(0)[mp3]</option>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>音乐播放器</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <input type="text" value="" placeholder="请输入歌名..." id="search">
+      <button onclick="Search()">搜索</button>
+    </div>
+    <select id="sound quality">
+      <option value="14" selected="selected">SQ无损音质(14)[flac]</option>
+      <option value="13">SQ无损音质(13)[flac]</option>
+      <option value="12"> SQ无损音质(12)[flac]</option>
+      <option value="11">SQ无损音质(11)[flac]</option>
+      <option value="10">SQ无损音质(10)[flac]</option>
+      <option value="9">HQ高音质(9)[mp3]</option>
+      <option value="8">HQ高音质(8)[mp3]</option>
+      <option value="7">标准音质(7)[mp3]</option>
+      <option value="6">标准音质(6)[ogg]</option>
+      <option value="5">标准音质(5)[ogg]</option>
+      <option value="4">标准音质(4)[m4a]</option>
+      <option value="3">有损音质(3)[m4a]</option>
+      <option value="2">有损音质(2)[m4a]</option>
+      <option value="1">音乐试听(1)[mp3]</option>
+      <option value="0">音乐试听(0)[mp3]</option>
     </select>
-   <div class="receiver-edit"> 
-    <p> <span class="title">歌名：</span>
-     <span id="song">{{receiverForm.song}}</span></p> 
-    <p> <span class="title">歌手：</span>
-     <span id="singer">{{receiverForm.singer}}</span></p> 
-    <p> <span class="title">专辑：</span>
-	 <span id="album">{{receiverForm.album}}</span></p> 
-    <p> <span class="title">品质：</span>
-     <span id="quality">{{receiverForm.quality}}</span></p> 
-    <p> <span class="title">时间：</span>
-     <span id="interval">{{receiverForm.interval}}</span></p> 
-    <p> <span class="title">大小：</span>
-     <span id="size">{{receiverForm.size}}</span></p> 
-    <p> <span class="title">下载链接：</span>
-	 <span id="url">{{receiverForm.url}}</span></p>
-   </div> 
-   <audio id="bofang" autoplay="autoplay" controls="controls" loop="loop" preload="auto" src="">
-   </audio>
- </body>
+	<select id="choice">
+	  <option value="1" selected="selected">歌曲1[默认]</option>
+	  <option value="2">歌曲2</option>
+	  <option value="3">歌曲3</option>
+	  <option value="4">歌曲4</option>
+	  <option value="5">歌曲5</option>
+	  <option value="6">歌曲6</option>
+	  <option value="7">歌曲7</option>
+	  <option value="8">歌曲8</option>
+	  <option value="9">歌曲9</option>
+	  <option value="10">歌曲10</option>
+	</select>
+    <div class="receiver-edit">
+      <p> <span class="title">歌名：</span>
+        <span id="song">{{receiverForm.song}}</span></p>
+      <p> <span class="title">歌手：</span>
+        <span id="singer">{{receiverForm.singer}}</span></p>
+      <p> <span class="title">专辑：</span>
+        <span id="album">{{receiverForm.album}}</span></p>
+      <p> <span class="title">品质：</span>
+        <span id="quality">{{receiverForm.quality}}</span></p>
+      <p> <span class="title">时间：</span>
+        <span id="interval">{{receiverForm.interval}}</span></p>
+      <p> <span class="title">大小：</span>
+        <span id="size">{{receiverForm.size}}</span></p>
+      <p> <span class="title">下载链接：</span>
+        <span id="url">{{receiverForm.url}}</span></p>
+    </div>
+    <audio id="play" autoplay="autoplay" controls="controls" loop="loop" preload="auto" src="">
+    </audio>
+  </body>
 </html>
 <script>
-function myFunction() {
-    var name = document.getElementById("name").value;
-	var q = document.getElementById("pinzhi").value;
-        $.ajax({
-            url: "https://api.lolimi.cn/API/yiny/?word="+name+"&q="+q+"&n=1",
-            type: "get",
-            dataType: "json",
-            success: function(data){
-                /*这个方法里是ajax发送请求成功之后执行的代码*/
-                showData(data.data);//我们仅做数据展示
-            },
-            error: function(msg){
-                alert("ajax连接异常："+msg);
-            }
-        });
-    };
- //展示数据
-  function showData(data) {
-          var str = "";//定义用于拼接的字符串
-		  document.getElementById("song").innerHTML=data.song;
-          document.getElementById("singer").innerHTML=data.singer;
-		  document.getElementById("album").innerHTML=data.album;
-          document.getElementById("quality").innerHTML=data.quality;
-          document.getElementById("interval").innerHTML=data.interval;
-		  document.getElementById("size").innerHTML=data.size;
-		  document.getElementById("url").innerHTML=data.url;
-		  document.getElementById("bofang").src=data.url;
-     }
+function Search() {
+  var name = document.getElementById("search").value;
+  var q = document.getElementById("sound quality").value;
+  var n = document.getElementById("choice").value;
+    $.ajax({
+        url: "https://api.lolimi.cn/API/yiny/?word=" + name + "&q=" + q + "&n=" + n,
+        type: "get",
+        dataType: "json",
+        success: function(data) {
+          showData(data.data);
+        },
+        error: function(msg) {
+          alert("ajax连接异常："+ msg);
+        }
+      });
+};
+function showData(data) {
+  var str = "";
+  document.getElementById("song").innerHTML=data.song;
+  document.getElementById("singer").innerHTML=data.singer;
+  document.getElementById("album").innerHTML=data.album;
+  document.getElementById("quality").innerHTML=data.quality;
+  document.getElementById("interval").innerHTML=data.interval;
+  document.getElementById("size").innerHTML=data.size;
+  document.getElementById("url").innerHTML=data.url;
+  document.getElementById("play").src=data.url;
+}
 </script>
 <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.3.4/lib/darkmode-js.min.js"></script>
 <script>
