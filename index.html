@@ -57,6 +57,8 @@
     </div>
     <audio id="play" autoplay="autoplay" controls="controls" loop="loop" preload="auto" src="">
     </audio>
+	<img id="cover" src="" alt="image">
+	</img>
   </body>
 </html>
 <script>
@@ -78,17 +80,25 @@ function Search() {
 };
 function showData(data) {
   var str = "";
-  document.getElementById("song").innerHTML=data.song;
-  document.getElementById("singer").innerHTML=data.singer;
-  document.getElementById("album").innerHTML=data.album;
-  document.getElementById("quality").innerHTML=data.quality;
-  document.getElementById("interval").innerHTML=data.interval;
-  document.getElementById("size").innerHTML=data.size;
-  document.getElementById("url").innerHTML=data.url;
-  document.getElementById("play").src=data.url;
+  document.getElementById("song").innerHTML = data.song;
+  document.getElementById("singer").innerHTML = data.singer;
+  document.getElementById("album").innerHTML = data.album;
+  document.getElementById("quality").innerHTML = data.quality;
+  document.getElementById("interval").innerHTML = data.interval;
+  document.getElementById("size").innerHTML = data.size;
+  document.getElementById("url").innerHTML = data.url;
+  document.getElementById("play").src = data.url;
+  document.getElementById("cover").src = data.cover;
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.3.4/lib/darkmode-js.min.js"></script>
 <script>
   new Darkmode().showWidget();
 </script>
+<style type="text/css">
+  img{
+    width: 15%;
+    height: 15%;
+    object-fit: cover;
+  }
+</style>
