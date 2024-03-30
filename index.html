@@ -39,7 +39,7 @@
 	  <option value="9">歌曲9</option>
 	  <option value="10">歌曲10</option>
 	</select>
-    <div class="receiver-edit">
+    <div id="main" class="receiver-edit">
       <p> <span class="title">歌名：</span>
         <span id="song">{{receiverForm.song}}</span></p>
       <p> <span class="title">歌手：</span>
@@ -95,7 +95,12 @@ function showData(data) {
 <script>
   new Darkmode().showWidget();
 </script>
-<style type="text/css">
+<style>
+  * {
+    margin: 0;
+	padding:0.5%;
+
+  }
   img{
     width: 15%;
     height: 15%;
