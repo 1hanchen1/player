@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <input id="search" type="text" value="" placeholder="请输入歌名/歌手/专辑...">
+        <button onclick="Search()">搜索</button>
+    </div>
+    <select id="choice">
+        <option value="1" selected="selected">歌曲1[默认]</option>
+        <option value="2">歌曲2</option>
+        <option value="3">歌曲3</option>
+        <option value="4">歌曲4</option>
+        <option value="5">歌曲5</option>
+        <option value="6">歌曲6</option>
+        <option value="7">歌曲7</option>
+        <option value="8">歌曲8</option>
+        <option value="9">歌曲9</option>
+        <option value="10">歌曲10</option>
+    </select>
+    <div id="main" class="receiver-edit">
+        <p> <span class="title">歌名：</span>
+            <span id="name">{{receiverForm.name}}</span></p>
+        <p> <span class="title">歌手：</span>
+            <span id="author">{{receiverForm.author}}</span></p>
+        <p> <span class="title">下载链接：</span>
+            <span id="mp3">{{receiverForm.mp3}}</span></p>
+    </div>
+    <audio id="play" autoplay="autoplay" controls="controls" loop="loop" preload="auto" src="">
+    </audio>
+    <img id="cover" src="" alt="image">
+</body>
+</html>
+<script>
+    function Search() {
+        var name = document.getElementById("search").value;
+        var n = document.getElementById("choice").value;
+        $.ajax({
+            url: "https://api.linhun.vip/api/wyyyy?name=" + name + "&n=" + n + "&apiKey=2c6eb95f09efcc9c17041c2b6e128ae0",
+            type: "get",
+            dataType: "json",
+            success: function(data) {
+                showData(data);
+            },
+            error: function(msg) {
+                alert("ajax连接异常："+ msg);
+            }
+        });
+    };
+    function showData(data) {
+        var str = "";
+        document.getElementById("name").innerHTML = data.name;
+        document.getElementById("author").innerHTML = data.author;
+        document.getElementById("mp3").innerHTML = data.mp3;
+        document.getElementById("play").src = data.mp3;
+        document.getElementById("cover").src = data.img;
+    }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Darkmode.js/1.4.0/darkmode-js.min.js"></script>
+<script>
+    new Darkmode().showWidget();
+</script>
+<style>
+    * {
+        margin: 0;
+        padding:0.5%;
+    }
+    img{
+        width: 15%;
+        height: 15%;
+        object-fit: cover;
+    }
+</style>
