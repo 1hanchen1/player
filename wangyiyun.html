@@ -22,12 +22,12 @@
         <option value="9">歌曲9</option>
         <option value="10">歌曲10</option>
     </select>
-    <div id="main" class="receiver-edit">
-        <p> <span class="title">歌名：</span>
-            <span id="name">{{receiverForm.name}}</span></p>
-        <p> <span class="title">歌手：</span>
-            <span id="author">{{receiverForm.author}}</span></p>
-        <p> <span class="title">下载链接：</span>
+    <div style="text-align:center;" id="main" class="receiver-edit">
+        <p></p><span class="title">歌名：</span>
+        <span id="name">{{receiverForm.name}}</span></p>
+        <p></p><span class="title">歌手：</span>
+        <span id="author">{{receiverForm.author}}</span></p>
+        <p><span class="title">下载链接：</span>
             <span id="mp3">{{receiverForm.mp3}}</span></p>
     </div>
     <audio id="play" autoplay="autoplay" controls="controls" loop="loop" preload="auto" src="">
@@ -62,16 +62,51 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Darkmode.js/1.4.0/darkmode-js.min.js"></script>
 <script>
-    new Darkmode().showWidget();
+    var options = {
+            bottom: '0.01rem', // default: '32px'
+            right: '0.01rem', // default: '32px'
+            left: 'unset', // default: 'unset'
+            time: '0.5s', // default: '0.3s'
+            mixColor: '#fff', // default: '#fff'
+            backgroundColor: '#fff',  // default: '#fff'
+            buttonColorDark: '#100f2c',  // default: '#100f2c'
+            buttonColorLight: '#fff', // default: '#fff'
+            saveInCookies: true, // default: true,
+            label: '', // default: ''
+            autoMatchOsTheme: true // default: true
+        }
+    const darkmode = new Darkmode(options);
+    darkmode.showWidget();
+</script>
+<script>
+
+    var docEl = document.documentElement;
+    function setRemUnit () {
+        var rem = docEl.clientWidth / 50; // 可根据不同电脑分辨率进行手动修改（如1920*1080 为19.2
+        docEl.style.fontSize = rem + 'px'
+    }
+
+    setRemUnit()
+
+    window.addEventListener('resize', setRemUnit)
+    window.addEventListener('pageshow', function (e) {
+        if (e.persisted) {
+            setRemUnit()
+        }
+    })
 </script>
 <style>
-    * {
-        margin: 0;
-        padding:0.5%;
+    span {
+        font-size: large;
+        text-align: center;
+        margin: 5px;
+        border:0;
+        padding:0;
     }
     img{
-        width: 15%;
-        height: 15%;
+        width: 10%;
+        height: 10%;
         object-fit: cover;
+        font-size: large;
     }
 </style>
