@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.hhlqilongzhu.cn/images/head_portrait.jpg" type="image/x-icon">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>在线音乐播放盒</title>
+    <link rel="shortcut icon" href="">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./css/music.css">
+</head>
+
+<body onselectstart='return false' ondragstart="return false">
+    <h1 class="website-title">
+        <div class="my-icon-wrapper">
+            <i class="my-icon"></i>
+            <em class="player-name">在线音乐播放盒(搜索引擎：QQ音乐)</em>
+        </div>
+        <!-- <input type="text" placeholder="请输入歌曲名" class="search-input"> -->
+        <form id="searchForm">
+            <input type="text" class="search-input" id="searchInput" placeholder="请输入歌曲名/歌手....">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </h1>
+    <div class="main-interface">
+        <!-- 左边 -->
+        <div class="interface-nav">
+            <div class="musicList-head">
+                <h2 class="musicList-name">
+                    播放列表
+                </h2>
+                <div class="musicList-info">
+                    <em class="musicList-num">
+                        <span>0</span>首歌曲
+                    </em>
+
+                    <i class="musicList-clearAll" title="清空列表">
+                        <svg t="1580295707718" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="5076" width="20" height="22">
+                            <path
+                                d="M907.618072 232.742353 744.713682 232.742353 744.713682 116.382952c0-12.852708-10.419786-23.272495-23.272495-23.272495L302.556765 93.110457c-12.852708 0-23.272495 10.418762-23.272495 23.272495l0 116.360425L116.380904 232.743377c-12.852708 0-23.272495 10.419786-23.272495 23.272495s10.418762 23.272495 23.272495 23.272495l791.237168 0c12.852708 0 23.272495-10.419786 23.272495-23.272495S920.469756 232.742353 907.618072 232.742353zM325.829259 139.654423l372.340458 0 0 93.08793L325.829259 232.742353 325.829259 139.654423zM791.257647 372.362985c-12.852708 0-23.272495 10.418762-23.272495 23.272495l0 488.712146L256.012799 884.347625 256.012799 395.635479c0-12.852708-10.418762-23.272495-23.272495-23.272495s-23.272495 10.418762-23.272495 23.272495l0 511.983617c0 12.852708 10.418762 23.272495 23.272495 23.272495l558.516318 0c12.852708 0 23.272495-10.419786 23.272495-23.272495L814.529118 395.635479C814.529118 382.782771 804.110355 372.362985 791.257647 372.362985zM442.189684 767.987201l0-372.351721c0-12.852708-10.418762-23.272495-23.272495-23.272495s-23.272495 10.418762-23.272495 23.272495l0 372.351721c0 12.852708 10.418762 23.272495 23.272495 23.272495S442.189684 780.839909 442.189684 767.987201zM628.353257 767.987201l0-372.351721c0-12.852708-10.419786-23.272495-23.272495-23.272495s-23.272495 10.418762-23.272495 23.272495l0 372.351721c0 12.852708 10.419786 23.272495 23.272495 23.272495S628.353257 780.839909 628.353257 767.987201z"
+                                p-id="5077" fill="#707070"></path>
+                        </svg>
+                    </i>
+
+
+                </div>
+            </div>
+            <ul class="musicList-body scrollbar"></ul>
+        </div>
+        <!-- 右边 -->
+        <div class="interface-content">
+            <p id="guigui_pay_all"><i class="fas fa-play-circle icon guigui_icon">&nbsp;播放全部&nbsp;<i class="fas fa-plus icon guigui_icon"></i></i></p>
+            <ul class="musicList-right-body scrollbar" id="musicList-right"></ul>
+        </div>
+    </div>
+    <div class="player-container slidedown">
+        <div class="bg-shadow"></div>
+        <div class="player-body">
+            <div class="playbill">
+                <div class="singer-headshot" id="singer-headshot">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div class="lyric">
+                <div class="music-headline"></div>
+                <div class="music-information">
+                    <p class="singer-name">
+                        <span class="singer-name-fixed">歌手名：</span>
+                        <span class="singer-name-cur"></span>
+                    </p>
+                    <p class="album-name">
+                        <span class="album-name-fixed">专辑名：</span>
+                        <span class="album-name-cur"></span>
+                    </p>
+                </div>
+                <div class="music-lyric-scrollBox">
+                    <div class="lyricTimeLine left">
+                        <em class="lyricTimeVal">00:00</em>
+                        <div class="dot-point">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <ul class="music-lyric-list">
+                    </ul>
+
+                    <div class="lyricTimeLine right">
+                        <div class="dot-point">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <i class="small-play-icon play-paused-btn paused"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <i class="fullscreen-btn" title="收起歌曲详情页">
+            <!-- <svg t="1579853893003" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                p-id="4674" width="35" height="35">
+                <path
+                    d="M512.726547 675.318646c-8.063653 0-15.790638-3.245927-21.435195-9.006118L231.175103 400.906809c-11.603269-11.837606-11.410887-30.840402 0.427742-42.442648 11.837606-11.601222 30.841426-11.410887 42.442648 0.427742l238.681054 243.534596L751.407602 358.891903c11.601222-11.839653 30.602995-12.033058 42.442648-0.427742 11.839653 11.603269 12.031011 30.605042 0.427742 42.442648L534.161742 666.312528C528.517185 672.072719 520.791224 675.318646 512.726547 675.318646z"
+                    p-id="4675" fill="#8a8a8a"></path>
+            </svg> -->
+            <svg t="1580279065674" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                p-id="2129" width="24" height="24">
+                <path
+                    d="M816.64 412.16h-168.96L921.6 138.24 885.76 102.4 611.84 376.32V209.92c0-12.8-10.24-25.6-25.6-25.6-12.8 0-25.6 10.24-25.6 25.6V435.2c0 7.68 2.56 12.8 7.68 17.92 5.12 5.12 10.24 7.68 17.92 7.68h227.84c12.8 0 25.6-10.24 25.6-25.6 2.56-12.8-10.24-23.04-23.04-23.04zM435.2 563.2H207.36c-12.8 0-25.6 10.24-25.6 25.6 0 12.8 10.24 25.6 25.6 25.6h168.96L102.4 885.76 138.24 921.6l273.92-271.36v166.4c0 12.8 10.24 25.6 25.6 25.6s25.6-10.24 25.6-25.6V588.8c0-7.68-2.56-12.8-7.68-17.92-7.68-5.12-12.8-7.68-20.48-7.68z"
+                    p-id="2130" fill="#8a8a8a"></path>
+            </svg>
+        </i>
+    </div>
+    <div class="player-foot">
+        <div class="play-progressbar progressline">
+            <div class="play-cur-progressbar progressline-cur"></div>
+            <div class="time-schedule">
+                <span class="cut-time">00:00</span><span>&nbsp;/&nbsp;</span><span class="fixed-time">00:00</span>
+            </div>
+        </div>
+        <div class="foot-music-ctrl">
+            <div class="bottom-fun ctrl-fun-area">
+                <i class="playbill-small"></i>
+                <div class="foot-music-info">
+                    <a href="javascript:;" class="footctrl-singer"></a>
+                    <a href='javascript:;' class="footctrl-music"></a>
+                </div>
+            </div>
+            <div class="bottom-fun play-fun-area">
+                <div class="ctrl-play-btn">
+                    <i class="prev-music" title="上一首">
+                        <svg t="1578331074045" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="10897" width="28" height="28">
+                            <path
+                                d="M364.302083 465.602819L687.954365 218.588294c38.416414-29.327534 93.791393-1.929039 93.791392 46.396277v494.029051c0 48.325316-55.374979 75.725617-93.791392 46.398084L364.302083 558.397181c-30.600916-23.357989-30.600916-69.436372 0-92.794362zM238.945254 780.798397V451.684117v-164.562559c0-19.628152-5.904521-60.475733 17.057907-75.841215 25.523642-17.068744 59.747828 1.210165 59.747828 31.919454v493.676839c0 19.628152 5.915358 60.473927-17.047069 75.841215-25.53448 17.068744-59.758666-1.211971-59.758666-31.919454z"
+                                fill="#08cc67" p-id="10898"></path>
+                        </svg>
+                    </i>
+                    <i class="global-audio-ctrl play-paused-btn paused"></i>
+                    <i class="next-music" title="下一首">
+                        <svg t="1578331118208" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="11663" width="28" height="28">
+                            <path
+                                d="M655.706179 465.602819L332.053897 218.588294c-38.414608-29.327534-93.791393-1.929039-93.791392 46.396277v494.029051c0 48.325316 55.376785 75.725617 93.791392 46.398084l323.652282-247.014525c30.602722-23.357989 30.602722-69.436372 0-92.794362zM781.064814 780.798397V451.684117v-164.562559c0-19.628152 5.904521-60.475733-17.057907-75.841215-25.523642-17.068744-59.747828 1.210165-59.747828 31.919454v493.676839c0 19.628152-5.915358 60.473927 17.047069 75.841215 25.532673 17.068744 59.758666-1.211971 59.758666-31.919454z"
+                                fill="#08cc67" p-id="11664"></path>
+                        </svg>
+                    </i>
+                </div>
+            </div>
+            <div class="bottom-fun other-fun-area">
+                <i class="by-order"></i>
+                <i class="volumes">
+                    <i class="volume-icon"></i>
+                    <div class="volume-fun">
+                        <div class="volume-bar progressline">
+                            <div class="volume-cur-bar progressline-cur"></div>
+                            <div class="dynamic-btn"></div>
+                        </div>
+                    </div>
+                </i>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="confirm-add">
+        <i class="confirm-close"></i>
+        <h3 class="confirm-headline">在线音乐播放盒</h3>
+        <div class="confirm-content">
+            <i class="confirm-icon"></i>
+            是否添加歌曲列表?
+        </div>
+        <div class="confirm-ctrl">
+            <i class="centain-btn">确定</i>
+            <i class="cancal-btn">取消</i>
+        </div>
+    </div> -->
+    <audio src="" preload="load"></audio>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.18.0/js/md5.min.js"></script>
+    <script src="./js/method.js"></script>
+    <script src="./js/music.js"></script>
+</body>
+
+</html>
