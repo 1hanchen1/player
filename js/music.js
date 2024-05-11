@@ -50,7 +50,7 @@ async function searchMusic(keyword) {
         });
 
 
-        // 使用 Promise 封装异步添加歌曲到数�?
+        // 使用 Promise 封装异步添加歌曲到数�?
         function addMusicToArray(selectedMusic, musicInfoArray) {
             return new Promise((resolve) => {
                 // 创建音乐信息对象
@@ -61,25 +61,26 @@ async function searchMusic(keyword) {
                     lrc: selectedMusic.lrc,
                     url: selectedMusic.url
                 };
-                // 将音乐信息添加到数组�?
+                // 将音乐信息添加到数组�?
                 musicInfoArray.push(musicInfo);
-                console.log('歌曲已添�?:', musicInfo);
+                console.log('歌曲已添�?:', musicInfo);
+                document.getElementById('download').href = selectedMusic.url;
                 resolve(); // 异步操作完成
             });
         }
 
-        // 为每一�? li 元素上的加号图标添加点击事件
+        // 为每一�? li 元素上的加号图标添加点击事件
         const addIcons = document.querySelectorAll('.guigui_icon');
         addIcons.forEach(icon => {
             icon.addEventListener('click', async function (e) {
                 const index = parseInt(this.getAttribute('data-index'));
                 const selectedMusic = musicList[index];
                 await addMusicToArray(selectedMusic, musicInfoArray); // 等待异步操作完成
-                mainCode(musicInfoArray); // 传递更新后�? musicInfoArray
+                mainCode(musicInfoArray); // 传递更新后�? musicInfoArray
             });
         });
 
-        //获取所有播放全部按�?
+        //获取所有播放全部按�?
         const all_play_buttons = document.querySelectorAll('#guigui_pay_all');
 
         //遍历每个播放全部按钮,为其添加点击事件
@@ -88,7 +89,7 @@ async function searchMusic(keyword) {
                 // 清空 musicInfoArray 数组
                 musicInfoArray = [];
 
-                // 使用 Promise.all 同时异步添加所有歌�?
+                // 使用 Promise.all 同时异步添加所有歌�?
                 await Promise.all(musicList.map(music => addMusicToArray(music, musicInfoArray)));
 
                 console.log('全部歌曲信息:', musicInfoArray);
@@ -107,49 +108,49 @@ function mainCode(data) {
 
     var audio = $('audio').get(0),
         $doc = $('html,body'),
-        $playerContainer = $('.player-container');//播放器界面主�?
+        $playerContainer = $('.player-container');//播放器界面主�?
 
-    var $musicListNum = $('.musicList-num>span'),//播放列表主体�?
-        $musicListBody = $('.musicList-body'),//播放列表区中的歌曲总数显示�?
+    var $musicListNum = $('.musicList-num>span'),//播放列表主体�?
+        $musicListBody = $('.musicList-body'),//播放列表区中的歌曲总数显示�?
         $musicListClearAll = $('.musicList-clearAll');
 
     var $musicPlaybill = $('.singer-headshot>img'),//海报图片
         $musicHeadline = $('.music-headline'),//音乐名字
         $musicSinger = $('.singer-name-cur'),//歌手名字
         $musicAlbum = $('.album-name-cur'),//专辑名字
-        $musicLyric = $('.music-lyric-list'),//歌词展示�?
+        $musicLyric = $('.music-lyric-list'),//歌词展示�?
         $lyricTimeVal = $('.lyricTimeVal'),//歌词显示区拖动展示的时间
         $smallPlayIcon = $('.small-play-icon'),//歌词显示区拖动展示的播放按钮
-        $lyricTimeLine = $('.lyricTimeLine'),//实时时间�?
+        $lyricTimeLine = $('.lyricTimeLine'),//实时时间�?
         $fullscreenBtn = $('.fullscreen-btn');
 
-    var $progressbar = $('.play-progressbar'),//播放进度�?
-        $progressbarCur = $progressbar.find('.play-cur-progressbar'),//实时播放进度�?
+    var $progressbar = $('.play-progressbar'),//播放进度�?
+        $progressbarCur = $progressbar.find('.play-cur-progressbar'),//实时播放进度�?
         $progressbarCurDot = $progressbar.find('.time-schedule'),
-        $volumebar = $('.volume-bar'),//音量�?
-        $volumebarCur = $volumebar.find('.volume-cur-bar'),//实时音量�?
+        $volumebar = $('.volume-bar'),//音量�?
+        $volumebarCur = $volumebar.find('.volume-cur-bar'),//实时音量�?
         $volumebarCurDot = $volumebar.find('.dynamic-btn');
 
     var $musicPlaybillSmall = $('.playbill-small'),
         $byOrder = $('.by-order'),//播放顺序按钮
         $playPauseBtn = $('.global-audio-ctrl'),//底部中央暂停-播放按钮
-        $curTime = $('.cut-time'),//currenttime显示�?
-        $fixedTime = $('.fixed-time'),//duration显示�?
+        $curTime = $('.cut-time'),//currenttime显示�?
+        $fixedTime = $('.fixed-time'),//duration显示�?
         $footctrlMusic = $('.footctrl-singer'),
         $footctrlSinger = $('.footctrl-music'),
         $volumeIcon = $('.volume-icon'),
         $nextMusic = $('.next-music'),
         $prevMusic = $('.prev-music');
 
-    var progressbar = new Progressbar($progressbar, $progressbarCur, $progressbarCurDot),//播放进度条方�?
+    var progressbar = new Progressbar($progressbar, $progressbarCur, $progressbarCurDot),//播放进度条方�?
         player = new Player(data, audio, {
             $byOrder: $byOrder
         }),//媒体文件播放方法
-        volumesbar = new Progressbar($volumebar, $volumebarCur, $volumebarCurDot),//音量条方�?
+        volumesbar = new Progressbar($volumebar, $volumebarCur, $volumebarCurDot),//音量条方�?
         lyriccontent = null;//歌词方法
 
 
-    //如果播完了，就自动开始下一�?
+    //如果播完了，就自动开始下一�?
     function audioEnded() {
         player.autoSwitchLogic({
             circulatePlay: 'circulate-order',
@@ -190,7 +191,7 @@ function mainCode(data) {
 
     updateEle();
     function updateEle() {
-        $smallLiPlayIcon = $musicListBody.find('.smallLi-play-icon');//歌词区小图标（播�?/暂停�?
+        $smallLiPlayIcon = $musicListBody.find('.smallLi-play-icon');//歌词区小图标（播�?/暂停�?
         $musicList = $musicListBody.children();//歌词列表list
     }
 
@@ -208,32 +209,33 @@ function mainCode(data) {
         //设置音乐歌手
         $musicSinger.text(item.artist);
         $footctrlSinger.text(item.artist);
-        
-        //设置暂停-播放图标为播放样�?
+
+        //设置暂停-播放图标为播放样�?
         $playPauseBtn.removeClass('paused').addClass('played');
         $playPauseBtn.attr('title', '暂停');
         //设置音频url链接地址
         audio.setAttribute('src', item.url);
-        //设置音乐总时�? 
+
+        //设置音乐总时�?
         // $fixedTime.text(item.totalTime);
         // 加载音频文件以获取其时长
         audio.addEventListener('loadedmetadata', function () {
             // 获取音频文件的总时长（以秒为单位）
             var totalTimeInSeconds = audio.duration;
 
-            // 将秒数转换为分钟和秒格式（例如，将总秒数转换为 mm:ss 格式�?
+            // 将秒数转换为分钟和秒格式（例如，将总秒数转换为 mm:ss 格式�?
             var minutes = Math.floor(totalTimeInSeconds / 60);
             var seconds = Math.floor(totalTimeInSeconds % 60);
             var formattedTime = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 
-            // 设置音乐总时间显�?
+            // 设置音乐总时间显�?
             $fixedTime.text(formattedTime);
         });
         //播放音频
         audio.play();
         //加载歌词
         lyriccontent = new Lyric(data[index].lrc, $musicLyric, 'current-display');
-        $musicList.eq(index).addClass('boom-animate').siblings().removeClass('boom-animate');//给对应的歌曲列表子项添加正在播放动态效�?
+        $musicList.eq(index).addClass('boom-animate').siblings().removeClass('boom-animate');//给对应的歌曲列表子项添加正在播放动态效�?
         $smallLiPlayIcon.each(function (i) {
             var $this = $(this);
             if (i === index) {
@@ -251,14 +253,14 @@ function mainCode(data) {
     function progressRelative() {
         function progressbarCb(currentRatio) {
             if (!globalPlayFlag) return;
-            //点击小播放按钮时，先关后歌词区按�?-移动-松开事件后设置的定时�?
+            //点击小播放按钮时，先关后歌词区按�?-移动-松开事件后设置的定时�?
             clearTimeout($musicLyric.timeOut);
             //隐藏时间线区
             $lyricTimeLine.css('visibility', 'hidden');
             //声明现在没有进行歌词区移动操作了
             lyriccontent.isMouseDown = false;
-            player.setPlayTime(currentRatio);//设置对应的播放进�?
-            lyriccontent.shiftLyricBox(player.audio.currentTime, player.audio.duration);//歌词跳到对应的显示位�?
+            player.setPlayTime(currentRatio);//设置对应的播放进�?
+            lyriccontent.shiftLyricBox(player.audio.currentTime, player.audio.duration);//歌词跳到对应的显示位�?
             if (player.audio.paused) {
                 player.audio.play();
                 player.$playPauseBtn.removeClass('paused').addClass('played');
@@ -268,8 +270,8 @@ function mainCode(data) {
         progressbar.progressbarDrag(progressbarCb);
         player.timeProgressListener(function (playRatio, curFormatTime) {
             if (!globalPlayFlag) return;
-            $curTime.text(curFormatTime);//实时设置currentTime的显示值（00�?00格式�?
-            //实时设置进度条宽度、歌词显示位�?
+            $curTime.text(curFormatTime);//实时设置currentTime的显示值（00�?00格式�?
+            //实时设置进度条宽度、歌词显示位�?
             if (progressbar.isMove) {
                 progressbar.setProgressCurSite(playRatio);
                 lyriccontent.shiftLyricBox(player.audio.currentTime, player.audio.duration);
@@ -280,7 +282,7 @@ function mainCode(data) {
     //音量相关
     volumeRelative();
     function volumeRelative() {
-        //初始化音量强度为一�?
+        //初始化音量强度为一�?
         var volumesbarW = $volumebar.outerWidth(),
             mediumVal = (1 / 2) * volumesbarW * (volumesbarW - $volumebarCurDot.outerWidth()) / volumesbarW;
         audio.volume = 0.5;
@@ -288,7 +290,7 @@ function mainCode(data) {
         $volumebarCurDot.css('left', mediumVal + 'px');
 
         //音量条相关事件：即点击和拖移事件
-        var prevVolume = 0;//记录变成静音前的volume�?
+        var prevVolume = 0;//记录变成静音前的volume�?
         $volumeIcon.on('click', function () {
             var $this = $(this);
             if ($this.hasClass('muted')) {
@@ -318,7 +320,7 @@ function mainCode(data) {
 
     }
 
-    //暂停与播放事�?
+    //暂停与播放事�?
     function playpausedEvent() {
         if (!globalPlayFlag) return;
 
@@ -361,7 +363,7 @@ function mainCode(data) {
             this.classList.add(switchArr[orderIndex].order);
             this.setAttribute('title', switchArr[orderIndex].title);
         });
-        $nextMusic.on('click', function () {//下一�?
+        $nextMusic.on('click', function () {//下一�?
             if (!globalPlayFlag) return;
 
             player.clickSwitchLogic({
@@ -370,7 +372,7 @@ function mainCode(data) {
             });
             loadCurMusicInfo(data[player.playIndex]);
         });
-        $prevMusic.on('click', function () {//上一�?
+        $prevMusic.on('click', function () {//上一�?
             if (!globalPlayFlag) return;
 
             player.clickSwitchLogic({
@@ -396,7 +398,7 @@ function mainCode(data) {
 
     }
 
-    //歌词区操�?
+    //歌词区操�?
     lrcMouseMove();
     function lrcMouseMove() {
         var beginY = 0,
@@ -407,25 +409,25 @@ function mainCode(data) {
             if (!globalPlayFlag) return;
 
             if (e.button === 0) {
-                var curTopVal = parseInt($musicLyric.css('marginTop'));//获取按下鼠标时，歌词区的top�?
+                var curTopVal = parseInt($musicLyric.css('marginTop'));//获取按下鼠标时，歌词区的top�?
                 beginY = e.pageY;
-                moveY = curTopVal;//设置初始moveY值为该top�?
+                moveY = curTopVal;//设置初始moveY值为该top�?
                 lyriccontent.isMouseDown = true;//表明现在正在进行按下-移动-松开事件操作
                 clearTimeout($musicLyric.timeOut);
-                $lyricTimeLine.css('visibility', 'visible');//让两侧时间线区显�?
-                $lyricTimeVal.text(lyriccontent.getAdaptTime(moveY).formatTime);//设置按下鼠标时的坐标对应的歌词所对应的歌曲时�?
+                $lyricTimeLine.css('visibility', 'visible');//让两侧时间线区显�?
+                $lyricTimeVal.text(lyriccontent.getAdaptTime(moveY).formatTime);//设置按下鼠标时的坐标对应的歌词所对应的歌曲时�?
 
                 $doc.on('mousemove', function (e) {
                     curY = e.pageY;
                     moveY += curY - beginY;
                     beginY = curY;
-                    //限制歌词区移动top值的上限与下�?
+                    //限制歌词区移动top值的上限与下�?
                     if (moveY > lyriccontent.allLiTopArr[0]) {
                         moveY = lyriccontent.allLiTopArr[0];
                     } else if (moveY < lyriccontent.allLiTopArr[lyriccontent.allLiTopArr.length - 1]) {
                         moveY = lyriccontent.allLiTopArr[lyriccontent.allLiTopArr.length - 1];
                     }
-                    //歌词区移动时，实时设置它的top值，以达到移动效�?
+                    //歌词区移动时，实时设置它的top值，以达到移动效�?
                     $musicLyric.css({
                         'transition': 0 + 's',
                         'marginTop': moveY + 'px'
@@ -438,14 +440,14 @@ function mainCode(data) {
                     $doc.off('mousemove');
                     /*建议开启一个定时器之前一定要关掉前一个定时器*/
                     clearTimeout($musicLyric.timeOut);
-                    //松开时，开启一个在4秒后只执行一次的定时器。如果在�?4秒期间没点击小播放图标，就让歌词区位置依然随着歌曲播放进度变化而变�?
+                    //松开时，开启一个在4秒后只执行一次的定时器。如果在�?4秒期间没点击小播放图标，就让歌词区位置依然随着歌曲播放进度变化而变�?
                     $musicLyric.timeOut = setTimeout(function () {
                         $lyricTimeLine.css('visibility', 'hidden');
                         $musicLyric.css({
                             'transition': '.3s',
                             'marginTop': curTopVal + 'px'
                         })
-                        lyriccontent.isMouseDown = false;//松开后四秒后，将取消按下-移动-松开事件判断，表明歌词区现在没有进行移动操作�?
+                        lyriccontent.isMouseDown = false;//松开后四秒后，将取消按下-移动-松开事件判断，表明歌词区现在没有进行移动操作�?
                         $doc.off('mouseup');
                     }, 4000);
                 });
@@ -456,13 +458,13 @@ function mainCode(data) {
         $smallPlayIcon.on('click', function () {
             if (!globalPlayFlag) return;
 
-            //点击小播放按钮时，先关后歌词区按�?-移动-松开事件后设置的定时�?
+            //点击小播放按钮时，先关后歌词区按�?-移动-松开事件后设置的定时�?
             clearTimeout($musicLyric.timeOut);
             //隐藏时间线区
             $lyricTimeLine.css('visibility', 'hidden');
             //声明现在没有进行歌词区移动操作了
             lyriccontent.isMouseDown = false;
-            //再设置要播放的时间进�?
+            //再设置要播放的时间进�?
             player.audio.currentTime = lyriccontent.getAdaptTime(moveY).secondsTime;
             if (player.audio.paused) {
                 player.audio.play();
@@ -484,9 +486,9 @@ function mainCode(data) {
         $footctrlSinger.text('');
         $musicAlbum.text('');
         $musicListNum.text('0');//清零音乐列表歌曲显示数量
-        $fixedTime.text('00:00');//清零音乐总时�?  
+        $fixedTime.text('00:00');//清零音乐总时�?  
         $curTime.text('00:00');//清零音乐实时时间          
-        $playPauseBtn.removeClass('played').addClass('paused');//设置暂停-播放图标为播放样�?
+        $playPauseBtn.removeClass('played').addClass('paused');//设置暂停-播放图标为播放样�?
         $playPauseBtn.attr('title', '');
         audio.setAttribute('src', '');//设置音频url链接地址
 
@@ -530,7 +532,7 @@ function mainCode(data) {
         //如果是空格键
         if (e.which === 32 || e.keyCode === 32) {
             playpausedEvent();
-            //如果是esc�?
+            //如果是esc�?
         } else if (e.which === 27 || e.keyCode === 27) {
             $playerContainer.toggleClass('slidedown');
         }
