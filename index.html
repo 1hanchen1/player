@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QQ音乐播放器 - 支持歌词字体调整</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-music"></i>
+                <h1>QQ音乐播放器</h1>
+            </div>
+            <button class="btn" id="playlist-btn">
+                <i class="fas fa-list"></i> 我的歌单
+            </button>
+        </header>
+
+        <!-- 在container内添加歌单侧边栏 -->
+        <div class="playlist-sidebar" id="playlist-sidebar">
+            <div class="playlist-header">
+                <h3>我的歌单</h3>
+                <button class="close-btn" id="close-playlist-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="playlist-actions">
+                <button class="btn" id="create-playlist-btn">
+                    <i class="fas fa-plus"></i> 新建歌单
+                </button>
+            </div>
+            <div class="playlist-list" id="playlist-list">
+        <!-- 歌单列表将在这里动态生成 -->
+            </div>
+        </div>
+
+        <!-- 新建歌单模态框 -->
+        <div class="modal" id="new-playlist-modal">
+            <div class="modal-content">
+                <h3>新建歌单</h3>
+                <input type="text" id="new-playlist-name" placeholder="输入歌单名称">
+                <div class="modal-actions">
+                    <button class="btn" id="cancel-new-playlist">取消</button>
+                    <button class="btn primary" id="confirm-new-playlist">创建</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="api-info">
+            <h3>API使用说明</h3>
+            <p>本播放器使用QQ音乐API：<a href="https://api.dragonlongzhu.cn/api/dg_QQmusicflac.php" target="_blank">dg_QQmusicflac.php</a></p>
+            <p>支持搜索歌曲、获取播放链接和歌词数据</p>
+            <pre>请求示例: https://api.dragonlongzhu.cn/api/dg_QQmusicflac.php?msg=邓紫棋&type=json</pre>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-box" id="search-input" placeholder="搜索歌曲、歌手或专辑..." value="周杰伦">
+            <button class="search-btn" id="search-btn">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        
+        <h2 class="section-title">搜索结果</h2>
+        <div class="results-container" id="results-container">
+            <div class="song-card">
+                <img src="https://via.placeholder.com/280x220/1a1a2e/31c6ff?text=搜索音乐" class="album-art" alt="Album Art">
+                <div class="song-info">
+                    <div class="song-title">在搜索框中输入关键词</div>
+                    <div class="song-artist">点击上方搜索按钮查找音乐</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="player-container">
+        <div class="player">
+            <div class="current-song" id="current-song">
+                <img src="https://via.placeholder.com/60/1a1a2e/31c6ff?text=QQ音乐" class="current-album-art" id="current-album-art" alt="Album Art">
+                <div class="current-song-info">
+                    <div class="current-song-title" id="current-song-title">选择歌曲开始播放</div>
+                    <div class="current-song-artist" id="current-song-artist">-</div>
+                </div>
+            </div>
+            
+            <div class="player-controls">
+                <div class="control-buttons">
+                    <button class="control-btn" id="shuffle-btn">
+                        <i class="fas fa-random"></i>
+                    </button>
+                    <button class="control-btn" id="prev-btn">
+                        <i class="fas fa-step-backward"></i>
+                    </button>
+                    <button class="control-btn play-btn" id="play-btn">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="control-btn" id="next-btn">
+                        <i class="fas fa-step-forward"></i>
+                    </button>
+                    <button class="control-btn" id="repeat-btn">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="time" id="current-time">0:00</div>
+                    <div class="progress-bar" id="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <div class="time" id="total-time">0:00</div>
+                </div>
+            </div>
+            
+            <div class="volume-control">
+                <i class="fas fa-volume-up" id="volume-icon"></i>
+                <div class="volume-bar" id="volume-bar">
+                    <div class="volume-level" id="volume-level"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 歌词大屏模式 -->
+    <div class="lyrics-overlay" id="lyrics-overlay">
+        <button class="close-btn" id="close-btn">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="lyrics-header">
+            <img src="https://via.placeholder.com/250/1a1a2e/31c6ff?text=专辑封面" class="large-album-art" id="large-album-art" alt="Album Art">
+            <div class="large-song-title" id="large-song-title">歌曲标题</div>
+            <div class="large-song-artist" id="large-song-artist">歌手名称</div>
+        </div>
+        
+        <div class="lyrics-content-container">
+            <div class="font-controls">
+                <button class="font-btn" id="font-decrease" title="减小字体">
+                    <i class="fas fa-font"></i>
+                </button>
+                <button class="font-btn" id="font-increase" title="增大字体">
+                    <i class="fas fa-text-height"></i>
+                </button>
+                <button class="font-btn" id="font-reset" title="重置字体大小">
+                    <i class="fas fa-sync"></i>
+                </button>
+            </div>
+            <div class="font-size-indicator" id="font-size-indicator">字体大小: 100%</div>
+            
+            <div class="lyrics-scroll-area" id="lyrics-scroll-area">
+                <div class="lyrics-line">歌词加载中...</div>
+            </div>
+        </div>
+        
+        <div class="progress-info">
+            <div class="time-indicator" id="overlay-current-time">0:00</div>
+            <div class="lyrics-progress-bar" id="lyrics-progress-bar">
+                <div class="lyrics-progress" id="lyrics-progress"></div>
+            </div>
+            <div class="time-indicator" id="overlay-total-time">0:00</div>
+        </div>
+    </div>
+    
+    <script src="/js/script.js"></script>
+</body>
+</html>
